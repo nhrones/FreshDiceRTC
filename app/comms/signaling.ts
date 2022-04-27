@@ -17,14 +17,7 @@ import * as webRTC from './webRTC.ts'
 
 const DEBUG = true
 
- // set the correct url for our signal-service
-//const host = window.location.hostname
-//const SignalServerURL = 'https://signal-server.deno.dev'
-export const serviceURL = 'https://fresh-dice-rtc.deno.dev' //'http://localhost:8000' //(host === '127.0.0.1' || host === 'localhost')
-//    ? 'http://localhost:8000'
-//    : SignalServerURL
-//console.log('serviceURL', serviceURL)
-
+export const serviceURL = 'https://fresh-dice-rtc.deno.dev' 
 
 /**  Each Map-entry holds an array of callback functions mapped to an Event name */
 const subscriptions = new Map<number | string, Function[]>()
@@ -39,11 +32,7 @@ export let sse: EventSource
 
 /** Initializes this signal service event listeners */
 export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
-   //sse = //eventSource
-    
-    // if we've already initialized just return
-    //if (sse) { return }
-    
+
     // setup peers
     initPeers(id, name)
     
@@ -75,7 +64,7 @@ export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
     // this is most always peer-count exceeded!
     sse.onerror = (err) => {
         if (DEBUG) console.error('sse.error!', err);
-        //dispatch(Event.ShowPopup, {title:'Sorry!', msg:`Seats Full! Please close tab!`})
+        dispatch(Event.ShowPopup, {title:'Sorry!', msg:`Seats Full! Please close tab!`})
     }
 
     sse.onmessage = (msg: MessageEvent) => {
