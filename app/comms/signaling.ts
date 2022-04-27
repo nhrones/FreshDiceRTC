@@ -75,7 +75,7 @@ export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
     // this is most always peer-count exceeded!
     sse.onerror = (err) => {
         if (DEBUG) console.error('sse.error!', err);
-        dispatch(Event.ShowPopup, {title:'Sorry!', msg:`Seats Full! Please close tab!`})
+        //dispatch(Event.ShowPopup, {title:'Sorry!', msg:`Seats Full! Please close tab!`})
     }
 
     sse.onmessage = (msg: MessageEvent) => {
