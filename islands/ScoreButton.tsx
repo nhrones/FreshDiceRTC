@@ -1,0 +1,72 @@
+/** @jsx h */
+// dependencies
+import { h, useState, useEffect } from "../client_deps.ts";
+
+// app
+import { Event, fire, when } from '../app/events.ts'
+import { ScoreButtonProps } from "../app/types.ts";
+import { currentPlayer, thisPlayer } from '../app/players.ts'
+
+/** Score Button Component */
+export default function ScoreButton(props: ScoreButtonProps) {
+    const [reset, Reset] = useState(true);
+    const [value, setValue] = useState(props.value)
+    const [fillColor, setFillColor] = useState(props.color)
+    const [textColor, setTextColor] = useState(props.textColor)
+
+    // This behaves like componentDidMount
+    useEffect(() => {
+        
+        // register this handler once on mount
+        when(Event.ResetGame, () => {
+            Reset(!reset) // toggle to force update
+        })
+
+        when(Event.UpdateScoreElement + props.index, (data: {
+            renderAll: boolean, // fillColor + value
+            fillColor: string,
+            value: number,
+            available: boolean // true if can be taken
+        }) => {
+            // renderAll true means update all - false means just the value
+            if (data.available) {
+                setTextColor('DodgerBlue')
+                setValue(data.value)
+            } else {
+                setTextColor('white')
+                setFillColor(data.fillColor)
+                setValue(data.value)
+            }
+        })
+        
+        // add this view on Mount
+        fire(Event.ViewWasAdded, ({ type: 'ScoreButton', index: props.index, name: props.text }))
+    }, []);
+
+    function handleClick(e: MouseEvent) {
+        if (thisPlayer.id === currentPlayer.id) {
+            fire(Event.ScoreButtonTouched + props.index, {})
+        }
+    }
+    function handleHover(e: MouseEvent) {
+        fire(Event.UpdateTooltip + props.index, { hovered: true })
+    }
+    function handleMouseLeave(e: MouseEvent) {
+        fire(Event.UpdateTooltip + props.index, { hovered: false })
+    }
+    const ScoreColor = { color: textColor }
+    const background = { backgroundColor: fillColor }
+    const classNames = `scoreButton score-${props.index}`
+
+    return (
+        <button class={classNames} 
+                style={background} 
+                onClick={handleClick}
+                onMouseOver={handleHover}
+                onMouseLeave={handleMouseLeave}
+            >
+            <span>{props.text}</span><br />
+            <span class='scoreValue' style={ScoreColor} >{(value > 0) ? value : ' '}</span>
+        </button>
+    )
+}
