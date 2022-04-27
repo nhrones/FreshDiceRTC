@@ -53,7 +53,7 @@ class SignalConnection {
        
         
         // notify if the game is full
-        if (SignalConnection.connections >= 4) {
+        if (SignalConnection.connections >= 400) {
             if (DEBUG) console.log('User ' + this.id + ' tried to connect! connections: ' + SignalConnection.connections)
             return new Response("", { status: 404 })
         }
