@@ -9,11 +9,12 @@ import * as $$0 from "./islands/Canvas.tsx";
 import * as $$1 from "./islands/Die.tsx";
 import * as $$2 from "./islands/InfoLabel.tsx";
 import * as $$3 from "./islands/LeftScores.tsx";
-import * as $$4 from "./islands/Popup.tsx";
-import * as $$5 from "./islands/ScoreButton.tsx";
-import * as $$6 from "./islands/Scores.tsx";
-import * as $$7 from "./islands/Sounds.tsx";
-import * as $$8 from "./islands/ViewController.tsx";
+import * as $$4 from "./islands/Player.tsx";
+import * as $$5 from "./islands/Popup.tsx";
+import * as $$6 from "./islands/ScoreButton.tsx";
+import * as $$7 from "./islands/Scores.tsx";
+import * as $$8 from "./islands/Sounds.tsx";
+import * as $$9 from "./islands/ViewController.tsx";
 
 const manifest = {
   routes: {
@@ -26,11 +27,12 @@ const manifest = {
     "./islands/Die.tsx": $$1,
     "./islands/InfoLabel.tsx": $$2,
     "./islands/LeftScores.tsx": $$3,
-    "./islands/Popup.tsx": $$4,
-    "./islands/ScoreButton.tsx": $$5,
-    "./islands/Scores.tsx": $$6,
-    "./islands/Sounds.tsx": $$7,
-    "./islands/ViewController.tsx": $$8,
+    "./islands/Player.tsx": $$4,
+    "./islands/Popup.tsx": $$5,
+    "./islands/ScoreButton.tsx": $$6,
+    "./islands/Scores.tsx": $$7,
+    "./islands/Sounds.tsx": $$8,
+    "./islands/ViewController.tsx": $$9,
   },
   baseUrl: import.meta.url,
 };
