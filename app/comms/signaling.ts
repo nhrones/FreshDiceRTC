@@ -15,7 +15,7 @@ import {
 
 import * as webRTC from './webRTC.ts'
 
-const DEBUG = true
+const DEBUG = false
 
 export const serviceURL = 'https://fresh-dice-rtc.deno.dev' 
 
