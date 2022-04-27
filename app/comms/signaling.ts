@@ -20,7 +20,7 @@ const DEBUG = true
  // set the correct url for our signal-service
 //const host = window.location.hostname
 //const SignalServerURL = 'https://signal-server.deno.dev'
-export const serviceURL = 'http://localhost:8000' //(host === '127.0.0.1' || host === 'localhost')
+export const serviceURL = 'https://fresh-dice-rtc.deno.dev' //'http://localhost:8000' //(host === '127.0.0.1' || host === 'localhost')
 //    ? 'http://localhost:8000'
 //    : SignalServerURL
 //console.log('serviceURL', serviceURL)
