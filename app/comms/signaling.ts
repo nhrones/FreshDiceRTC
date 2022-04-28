@@ -16,7 +16,7 @@ import {
 import * as webRTC from './webRTC.ts'
 
 const DEBUG = false
-
+ 
 export const serviceURL = 'https://fresh-dice-rtc.deno.dev' 
 
 /**  Each Map-entry holds an array of callback functions mapped to an Event name */
@@ -39,7 +39,6 @@ export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
     // close the sse when the window closes
     self.addEventListener('beforeunload', (ev: BeforeUnloadEvent) => {
         ev.preventDefault();
-        //todo ev.returnValue = 'Are you sure you want to Quit?';
         if (sse.readyState === SSE.OPEN) {
             const sigMsg = JSON.stringify({
                     from: callee.id,
@@ -64,7 +63,7 @@ export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
     // this is most always peer-count exceeded!
     sse.onerror = (err) => {
         if (DEBUG) console.error('sse.error!', err);
-        dispatch(Event.ShowPopup, {title:'Sorry!', msg:`Seats Full! Please close tab!`})
+        //dispatch(Event.ShowPopup, {title:'Sorry!', msg:`Seats Full! Please close tab!`})
     }
 
     sse.onmessage = (msg: MessageEvent) => {

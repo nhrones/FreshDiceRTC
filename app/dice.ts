@@ -4,6 +4,7 @@ import { Event, fire, when } from './events.ts'
 import * as PlaySound from './sounds.ts'
 import * as evaluator from './diceEvaluator.ts'
 import { game } from './diceGame.ts'
+import { canvas, ctx} from '../app/dieFactory.ts'
 import {Die} from './types.ts'
 
 /**   
@@ -43,6 +44,14 @@ export const setfiveOfaKindWasSacrificed = (val: boolean) => {
 
 export const setfiveOfaKindCount = (val: number) => {
     fiveOfaKindCount = val
+}
+
+// ImageData to DataURL
+export function getImageSrc(imgData: ImageData) {
+    if (ctx) {
+        ctx.putImageData(imgData, 0, 0)
+        return canvas.toDataURL();
+    }
 }
 
 /** 

@@ -4,20 +4,13 @@ import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
 import { Event, when, fire } from '../app/events.ts'
-import { DieProps, ImageData } from "../app/types.ts";
+import { DieProps } from "../app/types.ts";
 
 // app
-import { canvas, ctx, faces, frozenFaces } from '../app/dieFactory.ts'
+import { faces, frozenFaces } from '../app/dieFactory.ts'
 import * as Dice from '../app/dice.ts'
 import { currentPlayer, thisPlayer } from '../app/players.ts'
 
-// ImageData to DataURL //todo move to Dice?
-export function getImageSrc(imgData: ImageData) {
-    if (ctx) {
-        ctx.putImageData(imgData, 0, 0)
-        return canvas.toDataURL();
-    }
-}
 
 /** Die Component */
 export default function Die(props: DieProps) {
@@ -36,15 +29,15 @@ export default function Die(props: DieProps) {
         })
     }, []);
 
-    // click event handler used to fire `touched` event
     function handleClick(e: MouseEvent) {
+        // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
             fire(Event.DieTouched, ({ index: props.index })) 
         }
     }
 
-    // we'll select an image for the die, based on its value and its frozen state
-    const imgPath = getImageSrc((frozen)
+    // we'll select an image for this die, based on its value and its frozen state
+    const imgPath = Dice.getImageSrc((frozen)
         ? frozenFaces[value]
         : faces[value])
 

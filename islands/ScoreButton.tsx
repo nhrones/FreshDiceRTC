@@ -44,6 +44,7 @@ export default function ScoreButton(props: ScoreButtonProps) {
     }, []);
 
     function handleClick(e: MouseEvent) {
+        // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
             fire(Event.ScoreButtonTouched + props.index, {})
         }

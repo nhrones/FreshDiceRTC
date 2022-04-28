@@ -19,13 +19,11 @@ import Popup from './Popup.tsx';
 import InfoLabel from './InfoLabel.tsx'
 import Player from './Player.tsx'
 
-export const serviceURL = 'http://localhost:8000'  // 'https://signal-server.deno.dev'
 const t = Date.now().toString()
 export const myID = 'P-' + t.substring(t.length-3)
 
-// // show any popup messages
+// // show any popup messages from peers
 signaler.onEvent(Event.ShowPopup, (data: {title:string, msg:string}) => {
-    console.info('************** ShowPopup-msg', data)
     fire(Event.ShowPopup, data)
 })
 
@@ -40,7 +38,7 @@ thisPlayer.id = myID
 thisPlayer.playerName = myID  
 setCurrentPlayer(thisPlayer)
   
-/** Game Controller Component */
+/** View Controller Component */
 export default function ViewController() {
     const [values, setValues] = useState([0, 0, 0, 0, 0]);
     const [frozen, setFrozen] = useState([false, false, false, false, false]);
@@ -50,10 +48,13 @@ export default function ViewController() {
     // This behaves like componentDidMount
     useEffect(() => {
         
-        // init comms
+        // initialize signal service communications
         signaler.initialize(myID, myID)
         
-        // we only want to register this callback once
+        //
+        // we'll register the following event callback once, on mount
+        //
+        
         when(Event.ScoreElementResetTurn, () => {
             setFrozen([false, false, false, false, false]);
             setValues([0, 0, 0, 0, 0]);
@@ -69,6 +70,7 @@ export default function ViewController() {
             setDisabled(data.disabled)
         })
         
+        // this will register this user locally and with any peer
         fire(Event.SetID, {id: myID, name: myID})
  
         // initial `DidMount` refresh
@@ -82,7 +84,7 @@ export default function ViewController() {
 
     // Roll Button clicked event handler 
     const handleClicked = (e: MouseEvent) => {
-        console.log('roll tp='+ thisPlayer.id + ' cp=' + currentPlayer.id)
+        // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
             fire(Event.RollButtonTouched, {})
         }
@@ -109,10 +111,10 @@ export default function ViewController() {
             </div>
             <Scores />
             <Popup/>
-            <InfoLabel  
-                text={'test'}
-            />
+            <InfoLabel text={'test'} />
+
             <Sounds/>
         </div>
+        
     );
 }
