@@ -182,13 +182,13 @@ function checkDataChannelState() {
     if (dataChannel.readyState === ReadyState.open) {
         if (RTCopen === false) {
             RTCopen = true
-            //dispatch('UpdateUI', `${callee.name} is now connected to ${caller.name}`);
-            console.log('UpdateUI', `${callee.name} is now connected to ${caller.name}`);
+            dispatch('UpdateUI', `${callee.name} is now connected to ${caller.name}`);
+            console.log(`${callee.name} is now connected to ${caller.name}`);
         }
     } else if (dataChannel.readyState === ReadyState.closed) {
         if (RTCopen === true) {
             RTCopen = false
-            dispatch('PeerDisconnected', `${caller.name} has disconnected!`) 
+            dispatch(Event.RemovePeer, caller.id) 
             reset({title:'Disconnect', msg:`${caller.name} has disconnected!`})
         }
     }

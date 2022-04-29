@@ -34,7 +34,7 @@ export const init = (thisgame: DiceGame, color: string) => {
     //players.add(thisPlayer)
 
     // WebRTC disconnect - can only be peer2
-    when(Event.PeerDisconnected, ()=>{ 
+    when(Event.PeerDisconnected, () => { 
         removePlayer([...players][1].id)
     })
     
@@ -177,8 +177,8 @@ export const addPlayer = (id: string, playerName: string) => {
  */
 export const removePlayer = (id: string) => {
     const p = getById(id)
-    if(p === null) return
     if (DEBUG) console.info(' removing player', p)
+    if(p === null) return
     players.delete(p)
     refreshPlayerColors();
     setThisPlayer([...players][0])

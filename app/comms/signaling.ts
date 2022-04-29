@@ -112,12 +112,9 @@ export const disconnect = () => {
  * @param data (string | string[] | object) - optional data to report to subscribers
  */
 export const dispatch = (event: string, data: string | string[] | object) => {
-    console.info('dispatching ' + event + ' = ', data)
     if (subscriptions.has(event)) {
-        console.info('subscriptions.has ' + event)
         const subs = subscriptions.get(event)!
         if (subs) {
-            console.info('subscriptions.has subs~')
             for (const callback of subs) {
                 callback(data != undefined ? data : {})
             }
