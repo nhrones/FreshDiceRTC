@@ -34,24 +34,6 @@ class SignalConnection {
 
     connect(): Response {
 
-        /* todo   
-        if (keepAlive) {
-            const interval = typeof keepAlive === "number"
-                ? keepAlive
-                : DEFAULT_KEEP_ALIVE_INTERVAL;
-            this.#keepAliveId = setInterval(() => {
-                this.dispatchComment("keep-alive comment");
-            }, interval);
-        }
-        
-        dispatchComment(comment: string): boolean {
-            controller.enqueue(encoder.encode(
-                `: ${comment.split("\n").join("\n: ")}\n\n`
-            ));
-        }
-        */
-       
-        
         // notify if the game is full
         if (SignalConnection.connections >= 40) {
             if (DEBUG) console.log('User ' + this.id + ' tried to connect! connections: ' + SignalConnection.connections)
@@ -97,7 +79,6 @@ class SignalConnection {
                     }
                     // We don't send messages to our self!
                     if (from !== this.id) {
-                        if (DEBUG) console.log('Is this from me! from - '+ from + ' myID - ' + this.id )
                         if (DEBUG) console.info('SSE sending: ', dataObject)
                         controller.enqueue('data: ' + JSON.stringify(dataObject) + '\n\n');
                     }
@@ -116,14 +97,6 @@ class SignalConnection {
 
         // Stream.pipeThrough - Provides a chainable way of piping the current 
         // stream through a transform stream or any other writable/readable pair.
-        //
-        //TODO const RESPONSE_HEADERS = [
-        // ["Connection", "Keep-Alive"],
-        // ["Content-Type", "text/event-stream"],
-        // ["Cache-Control", "no-cache"],
-        // ["Keep-Alive", `timeout=${Number.MAX_SAFE_INTEGER}`],
-        // ] as const;
-
         return new Response(this.stream.pipeThrough(new TextEncoderStream()), {
             headers: {
                 "content-type": "text/event-stream",
