@@ -7,8 +7,7 @@
 // deno-lint-ignore-file
 import { Event } from '../events.ts'
 import {
-    initPeers, 
-    Emoji, 
+    initPeers,
     callee, 
     registerPeer
 } from './peers.ts'
@@ -34,7 +33,7 @@ export let sse: EventSource
 
 
 /** Initializes this signal service event listeners */
-export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
+export const initialize = (name: string, id: string) => {
 
     // setup peers
     initPeers(id, name)
