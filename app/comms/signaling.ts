@@ -17,8 +17,10 @@ import * as webRTC from './webRTC.ts'
 
 const DEBUG = true
 
-export const serviceURL = 'http:localhost:8000'//'https://fresh-dice-rtc.deno.dev' // 'http:localhost:8000'
+export const serviceURL = 'http:localhost:8000'
 export const postURL = '/api/post'
+const sseURL = '/api/sse?id='
+
 
 /**  Each Map-entry holds an array of callback functions mapped to an Event name */
 const subscriptions = new Map<number | string, Function[]>()
@@ -52,7 +54,7 @@ export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
     })
 
     // register for server sent events
-    sse = new EventSource('/api/sse?id=' + id)
+    sse = new EventSource(sseURL + id)
  
     sse.onopen = () => {
         if (DEBUG) console.log('Sse.onOpen! >>>  webRTC.start()');

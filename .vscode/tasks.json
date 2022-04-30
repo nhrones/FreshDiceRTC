@@ -42,7 +42,6 @@
                 "cwd": "./",
                 "env": {
                     "DEBUG": "true",
-                    "DENO_REGION": "localhost"
                 }
             },
             "args": [
