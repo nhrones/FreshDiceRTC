@@ -15,9 +15,10 @@ import {
 
 import * as webRTC from './webRTC.ts'
 
-const DEBUG = false
- 
-export const serviceURL = 'https://fresh-dice-rtc.deno.dev' 
+const DEBUG = true
+
+export const serviceURL = 'http:localhost:8000'//'https://fresh-dice-rtc.deno.dev' // 'http:localhost:8000'
+export const postURL = '/api/post'
 
 /**  Each Map-entry holds an array of callback functions mapped to an Event name */
 const subscriptions = new Map<number | string, Function[]>()
@@ -46,14 +47,12 @@ export const initialize = (name: string, id: string, emoji = Emoji[0]) => {
                     data: callee.id + ' window was closed!',
                     id: 0
                 })
-            fetch(serviceURL+'/api/post', {
-                method: "POST",
-                body: sigMsg
-            })
+            fetch(postURL, { method: "POST", body: sigMsg })
         }
     })
 
-    sse = new EventSource(serviceURL + '/api/sse?id=' + id)
+    // register for server sent events
+    sse = new EventSource('/api/sse?id=' + id)
  
     sse.onopen = () => {
         if (DEBUG) console.log('Sse.onOpen! >>>  webRTC.start()');
@@ -138,10 +137,7 @@ export const signal = (msg: SignalingMessage) => {
     if (sse.readyState === SSE.OPEN) {
         const sigMsg = JSON.stringify({ from: callee.id, event: msg.event, data: msg.data })
         if (DEBUG) console.log('>>>>  sig-server  >>>> :', sigMsg)
-        fetch(serviceURL+'/api/post', {
-            method: "POST",
-            body: sigMsg
-        })
+        fetch(postURL, { method: "POST", body: sigMsg })
     } else {
         if (DEBUG) {
             console.error('No place to send the message:', msg.event)

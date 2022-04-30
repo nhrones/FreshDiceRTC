@@ -1,10 +1,9 @@
 
 import { HandlerContext } from "../../server_deps.ts";
-
 const DEBUG = true
 
-/** we should listen for dropped connections and remove them */
-export const connections: Map<string, SignalConnection> = new Map();
+///** we should listen for dropped connections and remove them */
+//export const connections: Map<string, SignalConnection> = new Map();
 
 export const handler = (_req: Request, _ctx: HandlerContext): Response => {
 
@@ -14,7 +13,7 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
     if (DEBUG) console.log('Client registering for SSE -- id-', id)
 
     const connection = new SignalConnection(id)
-    connections.set(id, connection);
+    //connections.set(id, connection);
 
     return connection.connect()
 };

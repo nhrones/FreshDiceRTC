@@ -3,8 +3,9 @@ import { Event, when, fire } from './events.ts'
 import { Player } from './types.ts'
 import { DiceGame } from './diceGame.ts'
 
-const MAXPLAYERS = 2
 const DEBUG = true
+
+const MAXPLAYERS = 2
 
 export let thisPlayer: Player = {
     id: "0",

@@ -1,6 +1,6 @@
 import { HandlerContext } from "../../server_deps.ts";
-
 const DEBUG = true
+
 
 export const  handler = async (_req: Request, _ctx: HandlerContext): Promise<Response> => {
     const dataObject = await _req.json();

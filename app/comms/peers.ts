@@ -1,6 +1,6 @@
 
-import { serviceURL } from './signaling.ts'
-import { Event, fire } from '../events.ts'
+import { postURL } from './signaling.ts'
+import { Event } from '../events.ts'
 export let callee: Peer = {
     id: 'callee',
     name: 'callee',
@@ -36,7 +36,7 @@ export const registerPeer = (id: string, _name: string) => {
         event: Event.RegisterPeer,
         data: callee
     })
-    fetch(serviceURL + '/api/post', { method: "POST", body: msg })
+    fetch(postURL, { method: "POST", body: msg })
 }
 
 // We start-up assuming we're first; the callee.   
