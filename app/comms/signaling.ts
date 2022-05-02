@@ -6,19 +6,16 @@
 
 // deno-lint-ignore-file
 import { Event } from '../events.ts'
-import {
-    initPeers,
-    callee, 
-    registerPeer
-} from './peers.ts'
-
+import { initPeers, callee, registerPeer } from './peers.ts'
 import * as webRTC from './webRTC.ts'
 
-const DEBUG = true
 
 export const serviceURL = 'http:localhost:8000'
 export const postURL = '/api/post'
 const sseURL = '/api/sse?id='
+
+const DEBUG = true
+
 
 
 /**  Each Map-entry holds an array of callback functions mapped to an Event name */

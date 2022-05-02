@@ -1,13 +1,7 @@
 // deno-lint-ignore-file
 
 import { Event } from '../events.ts'
-import { 
-    Peer, 
-    callee, 
-    caller, 
-    setCaller
-}  from './peers.ts'
-
+import { Peer, callee, caller, setCaller } from './peers.ts'
 import { 
     dispatch, 
     onEvent, 

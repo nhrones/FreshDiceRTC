@@ -3,11 +3,6 @@
 import * as dice from './dice.ts'
 import * as PlaySound from './sounds.ts'
 
-
-///////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//         local const for faster resolution        \\
-///////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 // Binary masks used to evaluate die sequences
 const smallLow = 15 // binary mask that represents a lower valued small-straight (1234)
 const smallMid = 30 // binary mask that represents a mid valued small-straight (2345)
@@ -16,30 +11,23 @@ const largeLow = 31 // binary mask that represents a low valued large-straight (
 const largeHigh = 62 // binary mask that represents a high valued large-straight (23456)
 const binaryFaceValue = [0, 1, 2, 4, 8, 16, 32] // (0=0, 1=1, 2=2, 3=4, 4=8, 5=16, 6=32)
 
+//
+// Dice Evaluator module ...
+// Evaluates a set of 5 die for the existence of simple 'poker' sets / values. 
+//
 
-/** 
- * Dice Evaluator module ...
- * Evaluates a set of 5 die for the existence of simple 'poker' sets / values. 
- */
-
-/** 
- * an array that represents the count of the   
- * ocuurance of each possible value of die faces 
- */
+/** an array that represents the count of the   
+ *  ocuurance of each possible value of die faces */
 let countOfDieFaceValue: number[] = [0, 0, 0, 0, 0, 0, 0]
 
-/** 
- * holds the sum of all five die face values 
- */
+/** holds the sum of all five die face values */
 export let sumOfAllDie = 0
 
-/** 
- * holds a value that represents the current   
- * sum of all die-face binary values   
- * where the face value(spots) 5 = binary value 16   
- * 1=1, 2=2, 3=4, 4=8, 5=16, 6=32   
- * (used to detect possible poker-straights) 
- */
+/** holds a value that represents the current   
+ *  sum of all die-face binary values   
+ *  where the face value(spots) 5 = binary value 16   
+ *  1=1, 2=2, 3=4, 4=8, 5=16, 6=32   
+ *  (used to detect possible poker-straights) */
 let straightsMask = 0
 
 // flags ... when set true, indicate a poker value has been detected
@@ -54,12 +42,10 @@ export let hasSmallStr = false
 export let hasLargeStr = false
 
 
-/** 
- * Called from Dice.Roll()    
- * Evaluates the values of the die-set,   
- * records the 'count' of Face Values of the 5 die.       
- * sets dice.isFiveOfaKind if FiveOkind is detected 
- */
+/** Called from Dice.Roll()    
+ *  Evaluates the values of the die-set,   
+ *  records the 'count' of Face Values of the 5 die.       
+ *  sets dice.isFiveOfaKind if FiveOkind is detected */
 export const evaluateDieValues = () => {
     countOfDieFaceValue = [0, 0, 0, 0, 0, 0, 0]
     sumOfAllDie = 0 // set in the loop below
@@ -140,9 +126,7 @@ const setScoringFlags = () => {
         (mask & smallHigh) === smallHigh)
 }
 
-/** 
- * Tests if all 5 die values are the same. 
- */
+/** Tests if all 5 die values are the same. */
 const testForFiveOfaKind = () => {
     // did we see 5 of the same?
     if (hasFiveOfaKind) {
@@ -160,17 +144,12 @@ const testForFiveOfaKind = () => {
     return false
 }
 
-/** 
- * Sets a binary mask for evaluating for straights sequences. 
- */
+/** Sets a binary mask for evaluating for straights sequences. */
 const setTheStraightsMask = () => {
-
     // get the current die values
     const die = dice.die
-
     // reset our mask
     straightsMask = 0
-
     // for each posible die value ( 1 thru 6 )   
     // if any of the 5 die has this value, 
     // add the binary-weight of this value to our mask
@@ -184,27 +163,3 @@ const setTheStraightsMask = () => {
         }
     }
 }
-
-/** 
- * Tests for pairs, triplets, ...   
- * thisManySets parameter is used to evaluate for two-pair
- * @param(number) multipleSize - how many of each number
- * @param(number) thisManySets - how many sets of above
- */
-const _testForMultiples = (multipleSize: number, thisManySets: number) => {
-    let count = 0
-    let hits = 0
-    let sum = 0
-    for (let dieValue = 6; dieValue >= 1; dieValue--) {
-        count = countOfDieFaceValue[dieValue]
-        if (count >= multipleSize) {
-            hits += 1
-            sum += (multipleSize * dieValue)
-            if (hits === thisManySets) {
-                return sum
-            }
-        }
-    }
-    return 0
-}
-
