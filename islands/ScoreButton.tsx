@@ -4,8 +4,15 @@ import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
 import { Event, fire, when } from '../app/events.ts'
-import { ScoreButtonProps } from "../app/types.ts";
 import { currentPlayer, thisPlayer } from '../app/players.ts'
+
+type ScoreButtonProps = {
+    index: number;
+    value: number;
+    text: string;
+    color: string;
+    textColor: string;
+}
 
 /** Score Button Component */
 export default function ScoreButton(props: ScoreButtonProps) {

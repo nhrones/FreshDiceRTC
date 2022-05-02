@@ -5,12 +5,15 @@ import * as PlaySound from './sounds.ts'
 import * as evaluator from './diceEvaluator.ts'
 import { game } from './diceGame.ts'
 import { canvas, ctx} from '../app/dieFactory.ts'
-import {Die} from './types.ts'
 
-/**   
- * This module represents a singleton set of Die.    
- * A diceGame can have only a single set of dice. 
- */
+export type Die = {
+    value: number
+    frozen: boolean
+}
+
+//
+// This module represents a set of Die.
+//
 
 export let rollCount = 0
 export let isFiveOfaKind = false

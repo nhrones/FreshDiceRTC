@@ -1,7 +1,16 @@
 import { onEvent, signal } from './comms/signaling.ts'
 import { Event, when, fire } from './events.ts'
-import { Player } from './types.ts'
 import { DiceGame } from './diceGame.ts'
+
+/** A type that describes a Player object. */
+export type Player = {
+    id: string
+    idx: number
+    playerName: string
+    color: string
+    score: number
+    lastScore: string
+}
 
 const DEBUG = true
 

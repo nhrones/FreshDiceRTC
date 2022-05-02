@@ -1,8 +1,6 @@
 
-import { Payload } from './types.ts'
-
-// Event Callback
-type eventCallback = (data: Payload) => void 
+// deno-lint-ignore no-explicit-any
+type eventCallback = (data: any) => void 
  
 /** event subscriptions map */
 const eventSubscriptions: Map<string, eventCallback[]> = new Map()
@@ -17,7 +15,8 @@ export const when = (event: string, callback: eventCallback): void => {
 }
 
 /** fires an event ... executes all registered callbacks */
-export const fire = (event: string, data: Payload) => {
+// deno-lint-ignore no-explicit-any
+export const fire = (event: string, data: any) => {
     if (eventSubscriptions.has(event)) {
         const subscriptions = eventSubscriptions.get(event)
         if (subscriptions) {

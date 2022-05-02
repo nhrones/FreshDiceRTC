@@ -4,7 +4,7 @@ import { sendSignal } from './comms/webRTC.ts'
 import { onEvent } from './comms/signaling.ts';
 import { Event, when, fire } from './events.ts'
 import * as Players from './players.ts'
-import { Player } from './types.ts'
+import type { Player }  from './players.ts'
 import * as PlaySound from './sounds.ts'
 import * as dice from './dice.ts'
 import * as Possible from './possible.ts'
