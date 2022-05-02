@@ -58,9 +58,9 @@ let selectBuf: AudioBuffer
 let woohooBuf: AudioBuffer
 let loaded = false
 
-// called on startup (bottom of this module)
-export const init = async (auContext: AudioContext) => {
-    context = auContext
+/**  called on startup from Sounds.tsx */
+export const init = async (thisContext: AudioContext) => {
+    context = thisContext
     cluckBuf = await makeBuffer(cluck)
     dohhBuf = await makeBuffer(dohh)
     heeheeBuf = await makeBuffer(hehe)
@@ -70,7 +70,8 @@ export const init = async (auContext: AudioContext) => {
     noooBuf = await makeBuffer(nooo)
     loaded = true
 }
-// play methods
+
+// play sound functions
 export const Cluck = () => { if (loaded && cluckBuf) playBuffer(cluckBuf) }
 export const Dohh = () => { if (loaded && dohhBuf) playBuffer(dohhBuf) }
 export const Heehee = () => { if (loaded && heeheeBuf) playBuffer(heeheeBuf) }

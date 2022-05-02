@@ -5,9 +5,7 @@ import { h, useState, useEffect } from "../client_deps.ts";
 // context
 import { Event, when } from '../app/events.ts'
 
-interface LabelProps {
-    text: string
-}
+type LabelProps = { text: string }
 
 /** Die Component */
 export default function InfoLabel(props: LabelProps) {

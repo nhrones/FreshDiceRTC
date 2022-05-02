@@ -5,10 +5,10 @@ import { h, useState, useEffect } from "../client_deps.ts";
 // context
 import { Event, when } from '../app/events.ts'
 
-interface PlayerProps {
-    index: number
-    color: string
-    text: string
+type PlayerProps = {
+    index: number,
+    color: string,
+    text: string,
 }
 
 /** Die Component */

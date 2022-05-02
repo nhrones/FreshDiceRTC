@@ -2,9 +2,6 @@
 import { HandlerContext } from "../../server_deps.ts";
 const DEBUG = true
 
-///** we should listen for dropped connections and remove them */
-//export const connections: Map<string, SignalConnection> = new Map();
-
 export const handler = (_req: Request, _ctx: HandlerContext): Response => {
 
     const { searchParams } = new URL(_req.url);
@@ -13,7 +10,6 @@ export const handler = (_req: Request, _ctx: HandlerContext): Response => {
     if (DEBUG) console.log('Client registering for SSE -- id-', id)
 
     const connection = new SignalConnection(id)
-    //connections.set(id, connection);
 
     return connection.connect()
 };
@@ -94,8 +90,7 @@ class SignalConnection {
         });
 
 
-        // Stream.pipeThrough - Provides a chainable way of piping the current 
-        // stream through a transform stream or any other writable/readable pair.
+        // Stream.pipeThrough - Provides a chainable way of piping the current stream 
         return new Response(this.stream.pipeThrough(new TextEncoderStream()), {
             headers: {
                 "content-type": "text/event-stream",

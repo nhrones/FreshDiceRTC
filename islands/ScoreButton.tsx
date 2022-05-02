@@ -7,11 +7,11 @@ import { Event, fire, when } from '../app/events.ts'
 import { currentPlayer, thisPlayer } from '../app/players.ts'
 
 type ScoreButtonProps = {
-    index: number;
-    value: number;
-    text: string;
-    color: string;
-    textColor: string;
+    index: number,
+    value: number,
+    text: string,
+    color: string,
+    textColor: string,
 }
 
 /** Score Button Component */

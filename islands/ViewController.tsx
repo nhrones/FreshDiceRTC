@@ -34,6 +34,7 @@ signaler.onEvent(Event.UpdateUI, (content: string) => {
 //******** This is where it all starts *********//
 DiceGame.init()                                 //
 //**********************************************//
+
 thisPlayer.id = myID    
 thisPlayer.playerName = myID  
 setCurrentPlayer(thisPlayer)
@@ -112,9 +113,7 @@ export default function ViewController() {
             <Scores />
             <Popup/>
             <InfoLabel text={'test'} />
-
             <Sounds/>
         </div>
-        
     );
 }

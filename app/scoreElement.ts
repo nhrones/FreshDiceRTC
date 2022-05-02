@@ -12,16 +12,10 @@ const SmallStraight = 8
 const LargeStraight = 9
 const FullHouse = 10
 
-///////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//       local constants for faster resolution      \\
-///////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
 const emptyString = ''
 const black = 'black'
 
-/** 
- * ScoreElement viewModel class 
- */
+/** ScoreElement viewModel class */
 export default class ScoreElement {
 
     available: boolean
@@ -35,12 +29,9 @@ export default class ScoreElement {
     scoringDiesetSum = 0
     hasFiveOfaKind = false
     
-    /** 
-     * constructor ... called from DiceGame.buildScoreItems()
-     * @param(Dice) dice - Dice dependency injection
-     * @param(number) index - index of this instance
-     * @param(string) name - the name of this instance
-     */
+    /** constructor ... called from DiceGame.buildScoreItems()
+     * @param index (number) - index of this instance
+     * @param name (string) - the name of this instance */
     constructor(index: number, name: string) {
 
         this.available = false
@@ -51,10 +42,6 @@ export default class ScoreElement {
         this.possibleValue = 0
         this.scoringDieset = [0, 0, 0, 0, 0]
 
-        ///////////////////////////////////////////////    
-        //               bind events                 //
-        /////////////////////////////////////////////// 
-         
         // when I select a score
         when(Event.ScoreButtonTouched + this.index, () => {
             // notify all other players
@@ -86,16 +73,12 @@ export default class ScoreElement {
         })
     }
 
-    /** 
-     * broadcasts a message used to update the bottom infolabel element 
-     */
+    /** broadcasts a message used to update the bottom infolabel element */
     updateInfo(text: string) {
         fire(Event.UpdateInfo, text)
     }
 
-    /** 
-     * sets a flag to indicate this score is owned by the current player 
-     */
+    /** sets a flag to indicate this score is owned by the current player */
     setOwned(value: boolean) {
         this.owned = value
         if (this.owned) {
@@ -108,9 +91,7 @@ export default class ScoreElement {
         }
     }
 
-    /** 
-     * fires event used to update the score value 
-     */
+    /** fires event used to update the score value */
     renderValue(value: number) {
         fire(Event.UpdateScoreElement + this.index,
             {
@@ -122,9 +103,7 @@ export default class ScoreElement {
         )
     }
 
-    /**  
-     * broadcasts a message used to update the score view element 
-     */
+    /** broadcasts a message used to update the score view element */
     updateScoreElement(color: string, value: string) {
         fire(Event.UpdateScoreElement + this.index,
             {
@@ -136,10 +115,8 @@ export default class ScoreElement {
         )
     }
 
-    /** 
-     * sets a flag that determins if this scoreElement is available   
-     * to be selected by the current player 
-     */
+    /** sets a flag that determins if this scoreElement is available   
+     *  to be selected by the current player */
     setAvailable(value: boolean) {
         this.available = value
         if (this.available) {
@@ -239,9 +216,7 @@ export default class ScoreElement {
         }
     }
 
-    /**  
-     * evaluates and displays a possible value for this scoreElement
-     */
+    /** evaluates and displays a possible value for this scoreElement */
     setPossible() {
         this.possibleValue = Possible.evaluate(this.index)
         if (!this.owned) {
@@ -278,9 +253,7 @@ export default class ScoreElement {
     }
 
 
-    /** 
-     * resets this scoreElement 
-     */
+    /** resets this scoreElement */
     reset() {
         this.setOwned(false)
         this.finalValue = 0
@@ -289,9 +262,7 @@ export default class ScoreElement {
         this.hasFiveOfaKind = false
     }
 
-    /** 
-     * clears the possible value for this scoreElement 
-     */
+    /** clears the possible value for this scoreElement */
     clearPossible() {
         this.possibleValue = 0
         this.setAvailable(false)

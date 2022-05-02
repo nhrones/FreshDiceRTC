@@ -2,12 +2,11 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { Event, when, fire } from '../app/events.ts'
+import { Event, when } from '../app/events.ts'
 
-interface PopupProps {
+type PopupProps = {
     title: string,
     msg: string,
-
 }
 
 export default function Popup() {

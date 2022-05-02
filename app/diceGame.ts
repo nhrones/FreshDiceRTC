@@ -60,10 +60,6 @@ export class DiceGame {
         dice.init()
         rollButton.init()
 
-        ///////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        //                       bind events                          \\
-        ///////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
         onEvent(Event.ResetTurn, (_data: {}) => {
             if (!this.isGameComplete()) {
                 this.resetTurn()
@@ -73,7 +69,6 @@ export class DiceGame {
         onEvent(Event.ResetGame, (data: {}) => {
             this.resetGame()
         })
-
 
         when(Event.PopupResetGame, () => {
             sendSignal({ event: Event.ResetGame, data: {} })
@@ -128,9 +123,7 @@ export class DiceGame {
         }
     }
 
-    /** 
-     * resets the turn by resetting values and state 
-     */
+    /** resets the turn by resetting values and state */
     resetTurn() {
         Players.setCurrentPlayer(Players.getNextPlayer(Players.currentPlayer))
         PlaySound.enabled(Players.currentPlayer.id === Players.thisPlayer.id)
@@ -144,9 +137,7 @@ export class DiceGame {
         this.setRightScores()
     }
 
-    /** 
-     * resets game state to start a new game 
-     */
+    /** resets game state to start a new game */
     resetGame() {
         document.title = Players.thisPlayer.playerName
         fire(Event.HidePopup, {})
@@ -172,9 +163,7 @@ export class DiceGame {
         rollButton.update()
     }
 
-    /** 
-     * show a popup with winner and final score 
-     */
+    /** show a popup with winner and final score */
     showFinalScore(winner: any) {
         let winMsg
         if (winner.id !== Players.thisPlayer.id) {
@@ -200,9 +189,7 @@ export class DiceGame {
         )
     }
 
-    /** 
-     * check all scoreElements to see if game is complete 
-     */
+    /** check all scoreElements to see if game is complete */
     isGameComplete() {
         let result = true
         for (const scoreItem of this.scoreItems) {
@@ -213,9 +200,7 @@ export class DiceGame {
         return result
     }
 
-    /** 
-     * sum and show left scoreElements total value 
-     */
+    /** sum and show left scoreElements total value */
     setLeftScores() {
         this.leftTotal = 0
         for (const player of this.players) {
@@ -270,9 +255,7 @@ export class DiceGame {
         }
     }
 
-    /** 
-     * sum the values of the right scoreElements 
-     */
+    /** sum the values of the right scoreElements */
     setRightScores() {
         let val
         const len = this.scoreItems.length

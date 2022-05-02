@@ -17,16 +17,12 @@ const Chance = 12
 // of the dice set 
 //
 
-/** 
- * the index value of the Five of a kind scoreElement 
- */
+/** the index value of the Five of a kind scoreElement */
 export const FiveOfaKindIndex: number = FiveOfaKind
 
-/** 
- * evaluates the possible value of a scoreElement 
- * @param(number) elementID - the id of the scoreElement being evaluated
- * @returns(number) - the value this element would score with current dice values
- */
+/** evaluates the possible value of a scoreElement 
+ * @param elementID (number) - the id of the scoreElement being evaluated
+ * @returns(number) - the value this element would score with current dice values */
 export const evaluate = (elementID: number) => {
     if (elementID < 6) {
         // element ids are zero-based, so 'ones'->'sixes' are id 0-5 
@@ -38,11 +34,9 @@ export const evaluate = (elementID: number) => {
     }
 }
 
-/** 
- * evaluate for common poker scores 
- * @param(number) element - the id of the scoreElement being evaluated
- * @returns(number) - the value this element would score with current dice values
- */
+/** evaluate for common poker scores 
+ * @param element (number) - the id of the scoreElement being evaluated
+ * @returns(number) - the value this element would score with current dice values */
 const evaluateCommon = (element: number) => {
     if (element === FiveOfaKind) {
         return (evaluator.hasFiveOfaKind) ? 50 : 0
@@ -74,11 +68,10 @@ const evaluateCommon = (element: number) => {
 
 /** 
  * evaluates for the number of dice with this face value 
- * @param(number) thisNumber - the number to evaluate for
+ * @param target (number) - the number to evaluate for
  */
 const evaluateNumber = (target: number) => {
     let hits = 0
-    //const target = thisNumber + 1
     for (let i = 0; i < 5; i++) {
         const val = (dice.die[i]).value
         if (val === target) {

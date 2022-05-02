@@ -37,11 +37,9 @@ export const getCount =() => {
 
 export const init = (thisgame: DiceGame, color: string) => {
     game = thisgame
-    thisColor = color
+    thisColor = color 
     
-    // player 'state' objects 
     players.clear()
-    //players.add(thisPlayer)
 
     // WebRTC disconnect - can only be peer2
     when(Event.PeerDisconnected, () => { 
@@ -110,18 +108,14 @@ export const init = (thisgame: DiceGame, color: string) => {
     })
 }
 
-/** 
- * resets all players labels 
- */
+/** resets all players labels */
 export const resetScoreLabels = () => {
     for (let i = 0; i < MAXPLAYERS; i++) {
         updatePlayer(i, thisColor, '')
     }
 }
 
-/** 
- * reset players state to initial game state 
- */
+/** reset players state to initial game state */
 export const resetPlayers = () => {
     for (const player of players) {
         player.score = 0
@@ -129,18 +123,14 @@ export const resetPlayers = () => {
     }
 }
 
-/** 
- * add a score value for this player 
- */
+/** add a score value for this player */
 export const addScore = (player: Player, value: number) => {
     player.score += value
     const text = (player.score === 0) ? player.playerName : `${player.playerName} = ${player.score}`
     updatePlayer(player.idx, player.color, text)
 }
 
-/** 
- * broadcast an update message to the view element 
- */
+/** broadcast an update message to the view element */
 const updatePlayer = (index: number, color: string, text: string) => {
     if (DEBUG) console.log('players.updatePlayer' + index, text)
     fire(Event.UpdatePlayer + index, {index:index, color: color, text:text})
@@ -180,11 +170,7 @@ export const addPlayer = (id: string, playerName: string) => {
 
 }
 
-/** 
- * removes a Player    
- * called when the players webSocket has closed    
- * @param(string) id - the id of the player to be removed
- */
+/**  called when the players webSocket has closed */
 export const removePlayer = (id: string) => {
     const p = getById(id)
     if (DEBUG) console.info(' removing player', p)
@@ -212,9 +198,7 @@ export const getNextPlayer = (player: Player) => {
     return [...players][next]
 }
 
-/** 
- * reassigns index and unique color for each active player 
- */
+/** reassigns index and unique color for each active player */
 const refreshPlayerColors = () => {
     let i = 0
     for (const player of players) {
@@ -225,9 +209,7 @@ const refreshPlayerColors = () => {
 }
 
 
-/** 
- * an array of player colors 
- */
+/** an array of player colors */
 const playerColors = ["Brown", "Green", "RoyalBlue", "Red"]
 
 
@@ -240,8 +222,6 @@ export const setThisPlayer = (player: Player) => {
     favicon.href = `./icons/${player.idx}.png`;
 }
 
-
-
 export let currentPlayer: Player = {
     id: "0",
     idx: 0,
@@ -252,6 +232,5 @@ export let currentPlayer: Player = {
 }
 
 export const setCurrentPlayer = (player: Player) => {
-    //console.info('setCurrentPlayer ', player)
     currentPlayer = player
 }

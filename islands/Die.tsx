@@ -4,17 +4,16 @@ import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
 import { Event, when, fire } from '../app/events.ts'
-//import { DieProps } from "../app/types.ts";
 
 // app
 import { faces, frozenFaces } from '../app/dieFactory.ts'
 import * as Dice from '../app/dice.ts'
 import { currentPlayer, thisPlayer } from '../app/players.ts'
 
-export type DieProps = {
-    index: number;
-    value: number;
-    frozen: boolean;
+type DieProps = {
+    index: number,
+    value: number,
+    frozen: boolean,
 }
 
 /** Die Component */
