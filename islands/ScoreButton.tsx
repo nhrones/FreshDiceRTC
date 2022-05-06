@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { Event, fire, when } from '../app/events.ts'
+import { Event, fire, on } from '../app/events.ts'
 import { currentPlayer, thisPlayer } from '../app/players.ts'
 
 type ScoreButtonProps = {
@@ -25,11 +25,11 @@ export default function ScoreButton(props: ScoreButtonProps) {
     useEffect(() => {
         
         // register this handler once on mount
-        when(Event.ResetGame, () => {
+        on(Event.ResetGame, () => {
             Reset(!reset) // toggle to force update
         })
 
-        when(Event.UpdateScoreElement + props.index, (data: {
+        on(Event.UpdateScoreElement + props.index, (data: {
             renderAll: boolean, // fillColor + value
             fillColor: string,
             value: number,

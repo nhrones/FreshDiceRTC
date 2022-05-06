@@ -2,7 +2,7 @@
 import { onEvent } from './comms/signaling.ts'
 import { sendSignal } from './comms/webRTC.ts'
 
-import { Event, when, fire } from './events.ts'
+import { Event, on, fire } from './events.ts'
 import { currentPlayer, thisPlayer, Player } from './players.ts'
 import * as PlaySound from './sounds.ts'
 import * as dice from './dice.ts'
@@ -43,7 +43,7 @@ export default class ScoreElement {
         this.scoringDieset = [0, 0, 0, 0, 0]
 
         // when I select a score
-        when(Event.ScoreButtonTouched + this.index, () => {
+        on(Event.ScoreButtonTouched + this.index, () => {
             // notify all other players
             sendSignal({event: 'UpdateScore' + this.index, data:""})
             if (this.clicked()) {
@@ -58,7 +58,7 @@ export default class ScoreElement {
         })
 
         // show a message at bottom of screen when a user hovers on this element
-        when(Event.UpdateTooltip + this.index, (data: { hovered: boolean }) => {
+        on(Event.UpdateTooltip + this.index, (data: { hovered: boolean }) => {
             let msg = ''
             if (data.hovered) {
                 if (this.owned) {

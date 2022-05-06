@@ -2,7 +2,7 @@
 
 import { sendSignal } from './comms/webRTC.ts'
 import { onEvent } from './comms/signaling.ts';
-import { Event, when, fire } from './events.ts'
+import { Event, on, fire } from './events.ts'
 import * as Players from './players.ts'
 import type { Player }  from './players.ts'
 import * as PlaySound from './sounds.ts'
@@ -70,12 +70,12 @@ export class DiceGame {
             this.resetGame()
         })
 
-        when(Event.PopupResetGame, () => {
+        on(Event.PopupResetGame, () => {
             sendSignal({ event: Event.ResetGame, data: {} })
             this.resetGame()
         })
 
-        when(Event.ScoreElementResetTurn, () => {
+        on(Event.ScoreElementResetTurn, () => {
             if (this.isGameComplete()) {
                 this.clearPossibleScores()
                 this.setLeftScores()
@@ -86,7 +86,7 @@ export class DiceGame {
             }
         })
 
-        when(Event.ViewWasAdded, (data: { type: string, index: number, name: string }) => {
+        on(Event.ViewWasAdded, (data: { type: string, index: number, name: string }) => {
             if (data.type === 'ScoreButton') {
                 this.scoreItems.push(new ScoreElement(data.index, data.name))
             }

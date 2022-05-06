@@ -1,5 +1,5 @@
 import { onEvent, signal } from './comms/signaling.ts'
-import { Event, when, fire } from './events.ts'
+import { Event, on, fire } from './events.ts'
 import { DiceGame } from './diceGame.ts'
 
 /** A type that describes a Player object. */
@@ -42,12 +42,12 @@ export const init = (thisgame: DiceGame, color: string) => {
     players.clear()
 
     // WebRTC disconnect - can only be peer2
-    when(Event.PeerDisconnected, () => { 
+    on(Event.PeerDisconnected, () => { 
         removePlayer([...players][1].id)
     })
     
     // this will be Player1 as SetID happens at startup
-    when(Event.SetID,  (data: {id: string, name: string}) => {  
+    on(Event.SetID,  (data: {id: string, name: string}) => {  
         console.info('players.when.SetID', data)
         const {id, name} = data
         addPlayer(id, name)

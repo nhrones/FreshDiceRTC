@@ -5,7 +5,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { Event, when, fire } from "../app/events.ts";
+import { Event, on, fire } from "../app/events.ts";
 import * as signaler from '../app/comms/signaling.ts';
 import { DiceGame } from '../app/diceGame.ts'
 import { setCurrentPlayer, currentPlayer, thisPlayer } from '../app/players.ts'
@@ -56,13 +56,13 @@ export default function ViewController() {
         // we'll register the following event callback once, on mount
         //
         
-        when(Event.ScoreElementResetTurn, () => {
+        on(Event.ScoreElementResetTurn, () => {
             setFrozen([false, false, false, false, false]);
             setValues([0, 0, 0, 0, 0]);
             setDisabled(false)
         });
         
-        when(Event.UpdateRollButton, (data: { 
+        on(Event.UpdateRollButton, (data: { 
             text: string, 
             color: string, 
             disabled: boolean 

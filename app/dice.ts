@@ -1,6 +1,6 @@
 import { onEvent } from './comms/signaling.ts'
 import { sendSignal } from './comms/webRTC.ts'
-import { Event, fire, when } from './events.ts'
+import { Event, fire, on } from './events.ts'
 import * as PlaySound from './sounds.ts'
 import * as evaluator from './diceEvaluator.ts'
 import { game } from './diceGame.ts'
@@ -58,7 +58,7 @@ export function getImageSrc(imgData: ImageData) {
 export const init = () => {
 
     // register a callback function for the `internal` DieTouched event
-    when(Event.DieTouched, (data: { index: number }) => {
+    on(Event.DieTouched, (data: { index: number }) => {
         const { index } = data
         const thisDie = die[index] as Die
         if (thisDie.value > 0) {
@@ -135,7 +135,7 @@ export const roll = (dieValues: number[] | null) => {
  * @param value (number) - the die value to show in the view
  * @param frozen (boolean) - the frozen state of this die */
 const updateView = (index: number, value: number, frozen: boolean) => {
-    fire(Event.UpdateDie + index, { value: value, frozen: frozen })
+    fire('UpdateDie' + index, { value: value, frozen: frozen })
 }
  
 /** returns the set of die values as a formatted string */

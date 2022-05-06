@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
-import { Event, when } from '../app/events.ts'
+import { Event, on } from '../app/events.ts'
 
 type LabelProps = { text: string }
 
@@ -14,7 +14,7 @@ export default function InfoLabel(props: LabelProps) {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         // register this handler once on mount
-        when(Event.UpdateInfo, (thisText: string) => {
+        on(Event.UpdateInfo, (thisText: string) => {
            setText(thisText)
         })
 

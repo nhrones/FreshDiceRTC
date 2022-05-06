@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
-import { Event, when, fire } from '../app/events.ts'
+import { Event, on, fire } from '../app/events.ts'
 
 // app
 import { faces, frozenFaces } from '../app/dieFactory.ts'
@@ -24,10 +24,10 @@ export default function Die(props: DieProps) {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         // register this handler once on mount
-        when(Event.ScoreButtonTouched, () => {
+        on(Event.ScoreButtonTouched, () => {
             setfrozen(false)
         })
-        when(Event.UpdateDie + props.index, (data: { value: number, frozen: boolean }) => {
+        on(Event.UpdateDie + props.index, (data: { value: number, frozen: boolean }) => {
             setValue(data.value)
             setfrozen(data.frozen)
         })
