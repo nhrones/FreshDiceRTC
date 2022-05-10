@@ -1,4 +1,3 @@
-// deno-lint-ignore-file prefer-const
 
 export const faces: ImageData[] = []
 export const frozenFaces: ImageData[] = []
@@ -13,7 +12,9 @@ export const initCanvas = (thisCanvas: HTMLCanvasElement) => {
 }
 
 let size = 0
+// deno-lint-ignore prefer-const
 let x = 0
+// deno-lint-ignore prefer-const
 let y = 0
 
 export const buildDieFaces = ( dieSize: number,  color: string ) => {

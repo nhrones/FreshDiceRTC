@@ -7,8 +7,6 @@ import { h, Head } from "../client_deps.ts";
 import ViewController from "../islands/ViewController.tsx";
 import Canvas from '../islands/Canvas.tsx'
 
-//export const DEBUG = (Deno.env.get("DEBUG") === "true") || true
-
 /** Game Component */
 export default function DiceGame() {
   return (

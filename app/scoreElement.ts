@@ -182,7 +182,6 @@ export default class ScoreElement {
 
     /** sets the value of this scoreElement after taken by a player */
     setValue() {
-        //TODO SET transaction result here?
         this.setOwned(true)
         this.finalValue = this.possibleValue
         this.scoringDiesetSum = 0

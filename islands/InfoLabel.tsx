@@ -1,9 +1,11 @@
 /** @jsx h */
+
 // dependencies
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
 import { Event, on } from '../app/events.ts'
+
 
 type LabelProps = { text: string }
 

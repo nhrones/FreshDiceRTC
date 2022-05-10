@@ -1,4 +1,4 @@
-// deno-lint-ignore-file
+// deno-lint-ignore-file ban-types no-explicit-any
 
 import { sendSignal } from './comms/webRTC.ts'
 import { onEvent } from './comms/signaling.ts';
@@ -66,12 +66,12 @@ export class DiceGame {
             }
         })
 
-        onEvent(Event.ResetGame, (data: {}) => {
+        onEvent(Event.ResetGame, () => {
             this.resetGame()
         })
 
         on(Event.PopupResetGame, () => {
-            sendSignal({ event: Event.ResetGame, data: {} })
+            sendSignal({ event: Event.ResetGame, data: "" })
             this.resetGame()
         })
 
