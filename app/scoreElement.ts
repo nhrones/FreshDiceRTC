@@ -2,7 +2,7 @@
 import { onEvent } from './comms/signaling.ts'
 import { sendSignal } from './comms/webRTC.ts'
 
-import { Event, on, fire } from './events.ts'
+import {  on, fire } from './events.ts'
 import { currentPlayer, thisPlayer, Player } from './players.ts'
 import * as PlaySound from './sounds.ts'
 import * as dice from './dice.ts'
@@ -43,22 +43,22 @@ export default class ScoreElement {
         this.scoringDieset = [0, 0, 0, 0, 0]
 
         // when I select a score
-        on(Event.ScoreButtonTouched + this.index, () => {
+        on('ScoreButtonTouched' + this.index, () => {
             // notify all other players
             sendSignal({event: 'UpdateScore' + this.index, data:""})
             if (this.clicked()) {
                 sendSignal({event: 'ResetTurn', data:""})
-                fire(Event.ScoreElementResetTurn, "")
+                fire('ScoreElementResetTurn', "")
             }
         })
 
         // when other players select a score
-        onEvent(Event.UpdateScore + this.index, () => {
+        onEvent('UpdateScore' + this.index, () => {
             this.clicked()
         })
 
         // show a message at bottom of screen when a user hovers on this element
-        on(Event.UpdateTooltip + this.index, (data: { hovered: boolean }) => {
+        on('UpdateTooltip' + this.index, (data: { hovered: boolean }) => {
             let msg = ''
             if (data.hovered) {
                 if (this.owned) {
@@ -69,13 +69,13 @@ export default class ScoreElement {
             } else { // not hovered
                 msg = ''
             }
-           fire(Event.UpdateInfo, msg);
+           fire('UpdateInfo', msg);
         })
     }
 
     /** broadcasts a message used to update the bottom infolabel element */
     updateInfo(text: string) {
-        fire(Event.UpdateInfo, text)
+        fire('UpdateInfo', text)
     }
 
     /** sets a flag to indicate this score is owned by the current player */
@@ -93,7 +93,7 @@ export default class ScoreElement {
 
     /** fires event used to update the score value */
     renderValue(value: number) {
-        fire(Event.UpdateScoreElement + this.index,
+        fire('UpdateScoreElement' + this.index,
             {
                 renderAll: false,
                 fillColor:(this.owner)? this.owner.color: black,
@@ -105,7 +105,7 @@ export default class ScoreElement {
 
     /** broadcasts a message used to update the score view element */
     updateScoreElement(color: string, value: string) {
-        fire(Event.UpdateScoreElement + this.index,
+        fire('UpdateScoreElement' + this.index,
             {
                 renderAll: true,
                 fillColor: color,

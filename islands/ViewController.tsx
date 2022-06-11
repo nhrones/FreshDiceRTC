@@ -5,7 +5,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { Event, on, fire } from "../app/events.ts";
+import { on, fire } from "../app/events.ts";
 import * as signaler from '../app/comms/signaling.ts';
 import { DiceGame } from '../app/diceGame.ts'
 import { setCurrentPlayer, currentPlayer, thisPlayer } from '../app/players.ts'
@@ -23,11 +23,11 @@ const t = Date.now().toString()
 export const myID = 'P-' + t.substring(t.length-3)
 
 // // show any popup messages from peers
-signaler.onEvent(Event.ShowPopup, (data: {title:string, msg:string}) => {
-    fire(Event.ShowPopup, data)
+signaler.onEvent('ShowPopup', (data: {title:string, msg:string}) => {
+    fire('ShowPopup', data)
 })
 
-signaler.onEvent(Event.UpdateUI, (content: string) => {
+signaler.onEvent('UpdateUI', (content: string) => {
     console.info('UpdateUI: ', content);
 });
 
@@ -56,13 +56,13 @@ export default function ViewController() {
         // we'll register the following event callback once, on mount
         //
         
-        on(Event.ScoreElementResetTurn, () => {
+        on('ScoreElementResetTurn', () => {
             setFrozen([false, false, false, false, false]);
             setValues([0, 0, 0, 0, 0]);
             setDisabled(false)
         });
         
-        on(Event.UpdateRollButton, (data: { 
+        on('UpdateRollButton', (data: { 
             text: string, 
             color: string, 
             disabled: boolean 
@@ -72,7 +72,7 @@ export default function ViewController() {
         })
         
         // this will register this user locally and with any peer
-        fire(Event.SetID, {id: myID, name: myID})
+        fire('SetID', {id: myID, name: myID})
  
         // initial `DidMount` refresh
         setFrozen([false, false, false, false, false])
@@ -87,7 +87,7 @@ export default function ViewController() {
     const handleClicked = (e: MouseEvent) => {
         // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
-            fire(Event.RollButtonTouched, {})
+            fire('RollButtonTouched', {})
         }
     };
 

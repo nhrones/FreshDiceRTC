@@ -4,7 +4,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app 
-import { Event, fire, on } from '../app/events.ts'
+import { fire, on } from '../app/events.ts'
 
 /** Dice-set component */
 export default function LeftScores(props:{text: string}) {
@@ -13,7 +13,7 @@ export default function LeftScores(props:{text: string}) {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         
-        on(Event.UpdateLeftscore, (data: { color: string, text: string }) => {
+        on('UpdateLeftscore', (data: { color: string, text: string }) => {
             setText(data.text)
         })
         
@@ -22,7 +22,7 @@ export default function LeftScores(props:{text: string}) {
     }, []);
     
     function handleClick(){
-        fire(Event.ShowPopup, {title:'You Won', msg: 'You had 256'})
+        fire('ShowPopup', {title:'You Won', msg: 'You had 256'})
     }
     return (
         <div onClick={handleClick}class="leftScoresLabel ">

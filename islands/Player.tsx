@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
-import { Event, on } from '../app/events.ts'
+import { on } from '../app/events.ts'
 
 type PlayerProps = {
     index: number,
@@ -19,7 +19,7 @@ export default function Player(props: PlayerProps) {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         // register this handler once on mount
-        on(Event.UpdatePlayer + props.index, (data: PlayerProps) => {
+        on('UpdatePlayer' + props.index, (data: PlayerProps) => {
            setText(data.text)
            color = data.color
         })

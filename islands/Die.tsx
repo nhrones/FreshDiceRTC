@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
-import { Event, on, fire } from '../app/events.ts'
+import { on, fire } from '../app/events.ts'
 
 // app
 import { faces, frozenFaces } from '../app/dieFactory.ts'
@@ -24,10 +24,10 @@ export default function Die(props: DieProps) {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         // register this handler once on mount
-        on(Event.ScoreButtonTouched, () => {
+        on('ScoreButtonTouched', () => {
             setfrozen(false)
         })
-        on(Event.UpdateDie + props.index, (data: { value: number, frozen: boolean }) => {
+        on('UpdateDie' + props.index, (data:{ value: number, frozen: boolean }) => {
             setValue(data.value)
             setfrozen(data.frozen)
         })
@@ -36,7 +36,7 @@ export default function Die(props: DieProps) {
     function handleClick(e: MouseEvent) {
         // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
-            fire(Event.DieTouched, ({ index: props.index })) 
+            fire('DieTouched', ({ index: props.index })) 
         }
     }
 
@@ -46,5 +46,4 @@ export default function Die(props: DieProps) {
         : faces[value])
 
     return <img src={imgPath} class="die" onClick={handleClick} />;
-
 }

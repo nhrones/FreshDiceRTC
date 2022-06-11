@@ -1,5 +1,5 @@
 import { onEvent, signal } from './comms/signaling.ts'
-import { Event, on, fire } from './events.ts'
+import { on, fire } from './events.ts'
 import { DiceGame } from './diceGame.ts'
 
 /** A type that describes a Player object. */
@@ -42,12 +42,12 @@ export const init = (thisgame: DiceGame, color: string) => {
     players.clear()
 
     // WebRTC disconnect - can only be peer2
-    on(Event.PeerDisconnected, () => { 
+    on('PeerDisconnected', () => { 
         removePlayer([...players][1].id)
     })
     
     // this will be Player1 as SetID happens at startup
-    on(Event.SetID,  (data: {id: string, name: string}) => {  
+    on('SetID',  (data: {id: string, name: string}) => {  
         console.info('players.when.SetID', data)
         const {id, name} = data
         addPlayer(id, name)
@@ -59,18 +59,18 @@ export const init = (thisgame: DiceGame, color: string) => {
     })
     
     // // this can only be Player2 as Player1 is set internally above on-SetID event
-    onEvent(Event.RegisterPeer, (player: {id: string, name: string}) => {
+    onEvent('RegisterPeer', (player: {id: string, name: string}) => {
         console.log('RegisterPeer playerid: ', player.id)
         const {id, name} = player
         if (DEBUG) console.log(`Players.RegisterPeer ${id}  ${name}`)
         addPlayer(id, name);
         setCurrentPlayer([...players][0]);
         game.resetGame();
-        signal({event: Event.UpdatePeers, data: Array.from(players.values())})
+        signal({event: 'UpdatePeers', data: Array.from(players.values())})
     })
 
     // will only come from focused-player (currentPeer)
-    onEvent(Event.UpdatePeers, (playersArray: Player[]) => {
+    onEvent('UpdatePeers', (playersArray: Player[]) => {
         if (DEBUG) console.info('Players.UpdatePeers', playersArray)
          // clear the players set
          players.clear()
@@ -102,7 +102,7 @@ export const init = (thisgame: DiceGame, color: string) => {
     //
     //  sent from server on socket.close()
     //
-    onEvent(Event.RemovePeer, (id: string) => {
+    onEvent('RemovePeer', (id: string) => {
          removePlayer(id)
          game.resetGame()
     })
@@ -133,7 +133,7 @@ export const addScore = (player: Player, value: number) => {
 /** broadcast an update message to the view element */
 const updatePlayer = (index: number, color: string, text: string) => {
     if (DEBUG) console.log('players.updatePlayer' + index, text)
-    fire(Event.UpdatePlayer + index, {index:index, color: color, text:text})
+    fire('UpdatePlayer' + index, {index:index, color: color, text:text})
 }
 
 /** add a new player */

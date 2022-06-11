@@ -6,7 +6,7 @@
 /// <reference lib="deno.ns" />
 /// <reference lib="deno.unstable" />
 
-import { Event } from '../events.ts'
+//import { Events } from '../events.ts'
 import { initPeers, callee, registerPeer } from './peers.ts'
 import * as webRTC from './webRTC.ts'
 
@@ -74,12 +74,12 @@ export const initialize = (name: string, id: string) => {
 
     // SetID-Event listener. 
     // On connect, the signal-service will send our new ID.
-    sse.addEventListener(Event.SetID, (ev: MessageEvent) => {
+    sse.addEventListener('SetID', (ev: MessageEvent) => {
         const msgObject = JSON.parse(ev.data)
         const { data } = msgObject
         registerPeer( data.id, callee.name )
         // dispatch this event to any subscribers     
-        dispatch(Event.SetID, { id: data.id, name: callee.name })
+        dispatch('SetID', { id: data.id, name: callee.name })
         webRTC.start()
     })
 }

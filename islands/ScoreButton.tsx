@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { Event, fire, on } from '../app/events.ts'
+import { fire, on } from '../app/events.ts'
 import { currentPlayer, thisPlayer } from '../app/players.ts'
 
 type ScoreButtonProps = {
@@ -25,11 +25,11 @@ export default function ScoreButton(props: ScoreButtonProps) {
     useEffect(() => {
         
         // register this handler once on mount
-        on(Event.ResetGame, () => {
+        on('ResetGame', () => {
             Reset(!reset) // toggle to force update
         })
 
-        on(Event.UpdateScoreElement + props.index, (data: {
+        on('UpdateScoreElement' + props.index, (data: {
             renderAll: boolean, // fillColor + value
             fillColor: string,
             value: number,
@@ -47,20 +47,20 @@ export default function ScoreButton(props: ScoreButtonProps) {
         })
         
         // add this view on Mount
-        fire(Event.ViewWasAdded, ({ type: 'ScoreButton', index: props.index, name: props.text }))
+        fire('ViewWasAdded', ({ type: 'ScoreButton', index: props.index, name: props.text }))
     }, []);
 
     function handleClick(e: MouseEvent) {
         // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
-            fire(Event.ScoreButtonTouched + props.index, {})
+            fire('ScoreButtonTouched' + props.index, {})
         }
     }
     function handleHover(e: MouseEvent) {
-        fire(Event.UpdateTooltip + props.index, { hovered: true })
+        fire('UpdateTooltip' + props.index, { hovered: true })
     }
     function handleMouseLeave(e: MouseEvent) {
-        fire(Event.UpdateTooltip + props.index, { hovered: false })
+        fire('UpdateTooltip' + props.index, { hovered: false })
     }
     const ScoreColor = { color: textColor }
     const background = { backgroundColor: fillColor }

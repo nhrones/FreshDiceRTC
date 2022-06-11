@@ -2,7 +2,7 @@
 import { onEvent } from './comms/signaling.ts'
 import { sendSignal } from './comms/webRTC.ts'
 
-import { Event, on, fire } from './events.ts'
+import { on, fire } from './events.ts'
 import * as dice from './dice.ts'
 
 export const btnState = { text: 'Roll Dice', color: 'Brown', disabled: false }
@@ -10,14 +10,14 @@ export const btnState = { text: 'Roll Dice', color: 'Brown', disabled: false }
 /** RollButton viewModel initialization - Called from DiceGame ctor */
 export const init = () => {
     // when this instance rolls dice
-    on(Event.RollButtonTouched, () => {
+    on('RollButtonTouched', () => {
         dice.roll(null)
-        sendSignal({event: Event.UpdateRoll, data: dice.toString()})
+        sendSignal({event: 'UpdateRoll', data: dice.toString()})
         updateRollState()
     })
 
     // when oponents rolled the dice
-    onEvent(Event.UpdateRoll, (diceArray: string) => {
+    onEvent('UpdateRoll', (diceArray: string) => {
         dice.roll(JSON.parse(diceArray))
         updateRollState()
     })
@@ -46,5 +46,5 @@ const updateRollState = () => {
 
 /** fires an update event with the current state */
 export const update = () => {
-    fire(Event.UpdateRollButton, btnState)
+    fire('UpdateRollButton', btnState)
 }

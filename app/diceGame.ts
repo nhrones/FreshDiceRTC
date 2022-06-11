@@ -2,7 +2,7 @@
 
 import { sendSignal } from './comms/webRTC.ts'
 import { onEvent } from './comms/signaling.ts';
-import { Event, on, fire } from './events.ts'
+import { on, fire } from './events.ts'
 import * as Players from './players.ts'
 import type { Player }  from './players.ts'
 import * as PlaySound from './sounds.ts'
@@ -60,22 +60,22 @@ export class DiceGame {
         dice.init()
         rollButton.init()
 
-        onEvent(Event.ResetTurn, (_data: {}) => {
+        onEvent('ResetTurn', (_data: {}) => {
             if (!this.isGameComplete()) {
                 this.resetTurn()
             }
         })
 
-        onEvent(Event.ResetGame, () => {
+        onEvent('ResetGame', () => {
             this.resetGame()
         })
 
-        on(Event.PopupResetGame, () => {
-            sendSignal({ event: Event.ResetGame, data: "" })
+        on('PopupResetGame', () => {
+            sendSignal({ event: 'ResetGame', data: "" })
             this.resetGame()
         })
 
-        on(Event.ScoreElementResetTurn, () => {
+        on('ScoreElementResetTurn', () => {
             if (this.isGameComplete()) {
                 this.clearPossibleScores()
                 this.setLeftScores()
@@ -86,7 +86,7 @@ export class DiceGame {
             }
         })
 
-        on(Event.ViewWasAdded, (data: { type: string, index: number, name: string }) => {
+        on('ViewWasAdded', (data: { type: string, index: number, name: string }) => {
             if (data.type === 'ScoreButton') {
                 this.scoreItems.push(new ScoreElement(data.index, data.name))
             }
@@ -140,7 +140,7 @@ export class DiceGame {
     /** resets game state to start a new game */
     resetGame() {
         document.title = Players.thisPlayer.playerName
-        fire(Event.HidePopup, {})
+        fire('HidePopup', {})
         Players.setCurrentPlayer(this.getPlayer(0))
         dice.resetGame()
         for (const scoreItem of this.scoreItems) {
@@ -153,7 +153,7 @@ export class DiceGame {
         this.leftTotal = 0
         this.rightTotal = 0
 
-        fire(Event.UpdateLeftscore,
+        fire('UpdateLeftscore',
             { color: 'gray', text: 'left total = 0' }
         )
         Players.resetPlayers()
@@ -177,10 +177,10 @@ export class DiceGame {
         rollButton.btnState.color = 'black'
         rollButton.btnState.text = winMsg
         rollButton.update()
-        fire(Event.UpdateInfo, winMsg + ' ' + winner.score)
-        fire(Event.PopupResetGame, { show: true, title: 'You Won!', msg: winMsg + ' ' + winner.score })
+        fire('UpdateInfo', winMsg + ' ' + winner.score)
+        fire('PopupResetGame', { show: true, title: 'You Won!', msg: winMsg + ' ' + winner.score })
         sendSignal({
-            event: Event.ShowPopup,
+            event: 'ShowPopup',
             data: {
                 title: 'Game Over',
                 msg: winner.playerName + ' wins!' + ' ' + winner.score
@@ -232,7 +232,7 @@ export class DiceGame {
 
             Players.addScore(bonusWinner, 35)
 
-            fire(Event.UpdateLeftscore,
+            fire('UpdateLeftscore',
                 {
                     color: bonusWinner.color,
                     text: `left total = ${this.leftTotal.toString()} + 35`
@@ -241,7 +241,7 @@ export class DiceGame {
         }
         else {
 
-            fire(Event.UpdateLeftscore,
+            fire('UpdateLeftscore',
                 {
                     color: grayColor,
                     text: 'left total = ' + this.leftTotal.toString()
@@ -249,7 +249,7 @@ export class DiceGame {
             )
         }
         if (this.leftTotal === 0) {
-            fire(Event.UpdateLeftscore,
+            fire('UpdateLeftscore',
                 { color: grayColor, text: 'left total = 0' }
             )
         }

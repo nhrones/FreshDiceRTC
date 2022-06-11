@@ -2,7 +2,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { Event, on } from '../app/events.ts'
+import { on } from '../app/events.ts'
 
 type PopupProps = {
     title: string,
@@ -18,13 +18,13 @@ export default function Popup() {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         // register this handler once on mount
-        on(Event.ShowPopup, (data: PopupProps) => {
+        on('ShowPopup', (data: PopupProps) => {
             setTitle(data.title)
             setMsg(data.msg)
             setShow(true)
         })
         // data = winMsg + ' ' + winner.score
-        on(Event.PopupResetGame, (data: PopupProps) => {
+        on('PopupResetGame', (data: PopupProps) => {
             setTitle(data.title)
             setMsg(data.msg)
             setShow(true)

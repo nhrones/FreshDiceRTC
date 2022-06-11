@@ -1,6 +1,6 @@
 import { onEvent } from './comms/signaling.ts'
 import { sendSignal } from './comms/webRTC.ts'
-import { Event, fire, on } from './events.ts'
+import { fire, on } from './events.ts'
 import * as PlaySound from './sounds.ts'
 import * as evaluator from './diceEvaluator.ts'
 import { game } from './diceGame.ts'
@@ -58,7 +58,7 @@ export function getImageSrc(imgData: ImageData) {
 export const init = () => {
 
     // register a callback function for the `internal` DieTouched event
-    on(Event.DieTouched, (data: { index: number }) => {
+    on('DieTouched', (data: { index: number }) => {
         const { index } = data
         const thisDie = die[index] as Die
         if (thisDie.value > 0) {
@@ -66,13 +66,13 @@ export const init = () => {
             updateView(index, thisDie.value, thisDie.frozen)
             PlaySound.Select()
             // inform all other players
-            sendSignal({event: Event.UpdateDie, data:{ dieNumber: index}})
+            sendSignal({event: 'UpdateDie', data:{ dieNumber: index}})
         }
     })
 
     // register a callback function for the UpdateDie signaling event
     // sent when other player touched their die ...
-    onEvent(Event.UpdateDie, (data: { dieNumber: number }) => {
+    onEvent('UpdateDie', (data: { dieNumber: number }) => {
         const targetDie = die[data.dieNumber]
         if (targetDie.value > 0) {
             targetDie.frozen = !targetDie.frozen

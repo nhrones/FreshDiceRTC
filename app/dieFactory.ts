@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+/// <reference lib="deno.unstable" />
 
 export const faces: ImageData[] = []
 export const frozenFaces: ImageData[] = []
