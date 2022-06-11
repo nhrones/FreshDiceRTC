@@ -1,6 +1,6 @@
 import { onEvent } from './comms/signaling.ts'
 import { sendSignal } from './comms/webRTC.ts'
-import { fire, on } from './events.ts'
+import { fire, on } from './comms/events.ts'
 import * as PlaySound from './sounds.ts'
 import * as evaluator from './diceEvaluator.ts'
 import { game } from './diceGame.ts'

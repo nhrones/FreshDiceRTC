@@ -4,7 +4,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
-import { on } from '../app/events.ts'
+import { on } from '../app/comms/events.ts'
 
 
 type LabelProps = { text: string }

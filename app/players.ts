@@ -1,5 +1,5 @@
 import { onEvent, signal } from './comms/signaling.ts'
-import { on, fire } from './events.ts'
+import { on, fire } from './comms/events.ts'
 import { DiceGame } from './diceGame.ts'
 
 /** A type that describes a Player object. */

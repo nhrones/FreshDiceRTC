@@ -2,7 +2,7 @@
 
 import { sendSignal } from './comms/webRTC.ts'
 import { onEvent } from './comms/signaling.ts';
-import { on, fire } from './events.ts'
+import { on, fire } from './comms/events.ts'
 import * as Players from './players.ts'
 import type { Player }  from './players.ts'
 import * as PlaySound from './sounds.ts'
