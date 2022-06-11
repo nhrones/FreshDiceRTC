@@ -2,7 +2,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { on } from "../client_deps.ts" // '../app/comms/events.ts'
+import { on } from "../client_deps.ts"
 
 type PopupProps = {
     title: string,

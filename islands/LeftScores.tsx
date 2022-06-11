@@ -4,7 +4,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app 
-import { fire, on } from '../client_deps.ts'   //from '../app/comms/events.ts'
+import { fire, on } from '../client_deps.ts'
 
 /** Dice-set component */
 export default function LeftScores(props:{text: string}) {

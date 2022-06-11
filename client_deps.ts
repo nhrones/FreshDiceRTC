@@ -7,4 +7,7 @@ export {
     onEvent, 
     signal, 
     initialize,    
-} from "file:///C:/Users/nhron/Documents/GitHub/Comms/mod.ts";
+} from "https://raw.githubusercontent.com/nhrones/Comms/master/mod.ts" 
+
+/* local copy */
+// from  "file:///C:/Users/nhron/Documents/GitHub/Comms/mod.ts";

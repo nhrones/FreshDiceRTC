@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { fire, on } from '../client_deps.ts'   //'../app/comms/events.ts'
+import { fire, on } from '../client_deps.ts'
 import { currentPlayer, thisPlayer } from '../app/players.ts'
 
 type ScoreButtonProps = {

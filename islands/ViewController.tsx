@@ -5,8 +5,8 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // app
-import { on, fire } from '../client_deps.ts' //"../app/comms/events.ts";
-import * as signaler from '../client_deps.ts' //'../app/comms/signaling.ts';
+import { on, fire } from '../client_deps.ts'
+import * as signaler from '../client_deps.ts'
 import { DiceGame } from '../app/diceGame.ts'
 import { setCurrentPlayer, currentPlayer, thisPlayer } from '../app/players.ts'
 import { btnState } from '../app/rollButton.ts'

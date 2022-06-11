@@ -3,7 +3,7 @@
 import { h, useState, useEffect } from "../client_deps.ts";
 
 // context
-import { on, fire } from '../client_deps.ts' // '../app/comms/events.ts'
+import { on, fire } from '../client_deps.ts'
 
 // app
 import { faces, frozenFaces } from '../app/dieFactory.ts'
