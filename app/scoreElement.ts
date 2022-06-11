@@ -1,8 +1,8 @@
 
-import { onEvent } from './comms/signaling.ts'
-import { sendSignal } from './comms/webRTC.ts'
+import { onEvent } from '../client_deps.ts'   //'./comms/signaling.ts'
+import { sendSignal } from '../client_deps.ts'   //'./comms/webRTC.ts'
 
-import {  on, fire } from './comms/events.ts'
+import {  on, fire } from '../client_deps.ts'   //'./comms/events.ts'
 import { currentPlayer, thisPlayer, Player } from './players.ts'
 import * as PlaySound from './sounds.ts'
 import * as dice from './dice.ts'
