@@ -27,7 +27,7 @@ export const fire = <K extends keyof typeof Events>(event: K, data: unknown) => 
 }
 
 /** Events names list */
-export const Events: Record<string, string> = {
+const Events: Record<string, string> = {
     DieTouched: 'DieTouched',
     HidePopup: 'HidePopup',
     PopupResetGame: 'PopupResetGame',

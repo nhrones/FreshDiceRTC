@@ -6,7 +6,6 @@
 /// <reference lib="deno.ns" />
 /// <reference lib="deno.unstable" />
 
-//import { Events } from '../events.ts'
 import { initPeers, callee, registerPeer } from './peers.ts'
 import * as webRTC from './webRTC.ts'
 
