@@ -1,7 +1,7 @@
 
 import { onEvent } from '../client_deps.ts'
 import { sendSignal } from '../client_deps.ts'
-import {  on, fire } from '../client_deps.ts'
+import { on, fire } from '../client_deps.ts'
 import { currentPlayer, thisPlayer, Player } from './players.ts'
 import * as PlaySound from './sounds.ts'
 import * as dice from './dice.ts'
@@ -27,7 +27,7 @@ export default class ScoreElement {
     scoringDieset: number[]
     scoringDiesetSum = 0
     hasFiveOfaKind = false
-    
+
     /** constructor ... called from DiceGame.buildScoreItems()
      * @param index (number) - index of this instance
      * @param name (string) - the name of this instance */
@@ -42,33 +42,39 @@ export default class ScoreElement {
         this.scoringDieset = [0, 0, 0, 0, 0]
 
         // when I select a score
-        on('ScoreButtonTouched' + this.index, () => {
-            // notify all other players
-            sendSignal({event: 'UpdateScore' + this.index, data:""})
-            if (this.clicked()) {
-                sendSignal({event: 'ResetTurn', data:""})
-                fire('ScoreElementResetTurn', "")
+        on('ScoreButtonTouched', (index: number) => {
+            if (index === this.index) {
+                // notify all other players
+                sendSignal({ event: 'UpdateScore', data: this.index })
+                if (this.clicked()) {
+                    sendSignal({ event: 'ResetTurn', data: "" })
+                    fire('ScoreElementResetTurn', "")
+                }
             }
         })
 
         // when other players select a score
-        onEvent('UpdateScore' + this.index, () => {
-            this.clicked()
+        onEvent('UpdateScore', (index: number) => {
+            if (index === this.index) {
+                this.clicked()
+            }
         })
 
         // show a message at bottom of screen when a user hovers on this element
-        on('UpdateTooltip' + this.index, (data: { hovered: boolean }) => {
-            let msg = ''
-            if (data.hovered) {
-                if (this.owned) {
-                    msg = `${thisPlayer.playerName} owns ${this.name} with ${this.scoringDieset.toString()}`
-                } else { // hovered not owned
-                    msg = `${this.name}`
+        on('UpdateTooltip', (data: { index: number, hovered: boolean }) => {
+            if (index === this.index) {
+                let msg = ''
+                if (data.hovered) {
+                    if (this.owned) {
+                        msg = `${thisPlayer.playerName} owns ${this.name} with ${this.scoringDieset.toString()}`
+                    } else { // hovered not owned
+                        msg = `${this.name}`
+                    }
+                } else { // not hovered
+                    msg = ''
                 }
-            } else { // not hovered
-                msg = ''
+                fire('UpdateInfo', msg);
             }
-           fire('UpdateInfo', msg);
         })
     }
 
@@ -92,11 +98,12 @@ export default class ScoreElement {
 
     /** fires event used to update the score value */
     renderValue(value: number) {
-        fire('UpdateScoreElement' + this.index,
+        fire('UpdateScoreElement',
             {
+                index: this.index,
                 renderAll: false,
-                fillColor:(this.owner)? this.owner.color: black,
-                value: value,
+                fillColor: (this.owner) ? this.owner.color : black,
+                value: value.toString(),
                 available: this.available
             }
         )
@@ -104,11 +111,12 @@ export default class ScoreElement {
 
     /** broadcasts a message used to update the score view element */
     updateScoreElement(color: string, value: string) {
-        fire('UpdateScoreElement' + this.index,
+        fire('UpdateScoreElement',
             {
+                index: this.index,
                 renderAll: true,
                 fillColor: color,
-                valueString: value,
+                value: value,
                 available: this.available
             }
         )
@@ -126,7 +134,7 @@ export default class ScoreElement {
         else {
             if (this.owned) {
                 this.renderValue(this.possibleValue)
-            } else { 
+            } else {
                 this.renderValue(this.possibleValue)
             }
         }
@@ -139,7 +147,7 @@ export default class ScoreElement {
         console.log('score-clicked')
         // if game has not started ... just return
         if (dice.toString() === '[0,0,0,0,0]') return false
-        
+
         // if it's available
         let scoreTaken = false
 
@@ -191,7 +199,7 @@ export default class ScoreElement {
         })
         if (dice.isFiveOfaKind) {
             if (dice.fiveOfaKindBonusAllowed) {
-                dice.setfiveOfaKindCount( dice.fiveOfaKindCount + 1)
+                dice.setfiveOfaKindCount(dice.fiveOfaKindCount + 1)
                 if (this.index !== Possible.FiveOfaKindIndex) {
                     this.finalValue += 100
                 }
@@ -273,8 +281,8 @@ export default class ScoreElement {
         }
     }
 }
- 
-export const SCORE_TEXT  = [
+
+export const SCORE_TEXT = [
     "Ones",
     "Twos",
     "Threes",
@@ -288,4 +296,4 @@ export const SCORE_TEXT  = [
     "Full\nHouse",
     "Five\nO-Kind",
     "Chance",
-  ] as const;
+] as const;

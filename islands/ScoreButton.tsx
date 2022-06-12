@@ -23,29 +23,32 @@ export default function ScoreButton(props: ScoreButtonProps) {
 
     // This behaves like componentDidMount
     useEffect(() => {
-        
+
         // register this handler once on mount
         on('ResetGame', () => {
             Reset(!reset) // toggle to force update
         })
 
-        on('UpdateScoreElement' + props.index, (data: {
+        on('UpdateScoreElement', (data: {
+            index: number,
             renderAll: boolean, // fillColor + value
             fillColor: string,
-            value: number,
+            value: string,
             available: boolean // true if can be taken
         }) => {
             // renderAll true means update all - false means just the value
-            if (data.available) {
-                setTextColor('DodgerBlue')
-                setValue(data.value)
-            } else {
-                setTextColor('white')
-                setFillColor(data.fillColor)
-                setValue(data.value)
+            if (data.index === props.index) {
+                if (data.available) {
+                    setTextColor('DodgerBlue')
+                    setValue(parseInt(data.value))
+                } else {
+                    setTextColor('white')
+                    setFillColor(data.fillColor)
+                    setValue(parseInt(data.value))
+                }
             }
         })
-        
+
         // add this view on Mount
         fire('ViewWasAdded', ({ type: 'ScoreButton', index: props.index, name: props.text }))
     }, []);
@@ -53,26 +56,26 @@ export default function ScoreButton(props: ScoreButtonProps) {
     function handleClick(e: MouseEvent) {
         // only if it's our turn
         if (thisPlayer.id === currentPlayer.id) {
-            fire('ScoreButtonTouched' + props.index, {})
+            fire('ScoreButtonTouched', props.index)
         }
     }
     function handleHover(e: MouseEvent) {
-        fire('UpdateTooltip' + props.index, { hovered: true })
+        fire('UpdateTooltip', {index: props.index, hovered: false })
     }
     function handleMouseLeave(e: MouseEvent) {
-        fire('UpdateTooltip' + props.index, { hovered: false })
+        fire('UpdateTooltip', {index: props.index, hovered: false })
     }
     const ScoreColor = { color: textColor }
     const background = { backgroundColor: fillColor }
     const classNames = `scoreButton score-${props.index}`
 
     return (
-        <button class={classNames} 
-                style={background} 
-                onClick={handleClick}
-                onMouseOver={handleHover}
-                onMouseLeave={handleMouseLeave}
-            >
+        <button class={classNames}
+            style={background}
+            onClick={handleClick}
+            onMouseOver={handleHover}
+            onMouseLeave={handleMouseLeave}
+        >
             <span>{props.text}</span><br />
             <span class='scoreValue' style={ScoreColor} >{(value > 0) ? value : ' '}</span>
         </button>

@@ -133,7 +133,7 @@ export const addScore = (player: Player, value: number) => {
 /** broadcast an update message to the view element */
 const updatePlayer = (index: number, color: string, text: string) => {
     if (DEBUG) console.log('players.updatePlayer' + index, text)
-    fire('UpdatePlayer' + index, {index:index, color: color, text:text})
+    fire('UpdatePlayer', {index:index, color: color, text:text})
 }
 
 /** add a new player */

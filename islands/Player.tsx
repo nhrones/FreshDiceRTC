@@ -19,7 +19,8 @@ export default function Player(props: PlayerProps) {
     // set up event callbacks
     useEffect(() => { // behaves like componentDidMount
         // register this handler once on mount
-        on('UpdatePlayer' + props.index, (data: PlayerProps) => {
+        on('UpdatePlayer', (data: PlayerProps) => {
+            if (data.index === props.index)
            setText(data.text)
            color = data.color
         })

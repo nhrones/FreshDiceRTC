@@ -66,17 +66,17 @@ export const init = () => {
             updateView(index, thisDie.value, thisDie.frozen)
             PlaySound.Select()
             // inform all other players
-            sendSignal({event: 'UpdateDie', data:{ dieNumber: index}})
+            sendSignal({event: 'UpdateDie', data:{ index: index}})
         }
     })
 
     // register a callback function for the UpdateDie signaling event
     // sent when other player touched their die ...
-    onEvent('UpdateDie', (data: { dieNumber: number }) => {
-        const targetDie = die[data.dieNumber]
+    onEvent('UpdateDie', (data: { index: number }) => {
+        const targetDie = die[data.index]
         if (targetDie.value > 0) {
             targetDie.frozen = !targetDie.frozen
-            updateView(data.dieNumber, targetDie.value, targetDie.frozen)
+            updateView(data.index, targetDie.value, targetDie.frozen)
         }
     })
 }
@@ -135,7 +135,7 @@ export const roll = (dieValues: number[] | null) => {
  * @param value (number) - the die value to show in the view
  * @param frozen (boolean) - the frozen state of this die */
 const updateView = (index: number, value: number, frozen: boolean) => {
-    fire('UpdateDie' + index, { value: value, frozen: frozen })
+    fire('UpdateDie', { index: index, value: value, frozen: frozen })
 }
  
 /** returns the set of die values as a formatted string */

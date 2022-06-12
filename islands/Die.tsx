@@ -27,9 +27,11 @@ export default function Die(props: DieProps) {
         on('ScoreButtonTouched', () => {
             setfrozen(false)
         })
-        on('UpdateDie' + props.index, (data:{ value: number, frozen: boolean }) => {
-            setValue(data.value)
-            setfrozen(data.frozen)
+        on('UpdateDie', (data: { index: number, value: number, frozen: boolean }) => {
+            if (data.index === props.index){
+                setValue(data.value)
+                setfrozen(data.frozen)
+            }
         })
     }, []);
 
