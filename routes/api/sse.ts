@@ -65,7 +65,7 @@ class SignalConnection {
                         if (event === 'close' && from === this.id) {
                             sseChannel.close()
                             this.stream = null
-                            SignalConnection.disconnect('recieved a <close> event ' + dataObject.data)
+                            SignalConnection.disconnect('recieved a <close> event -> ' + dataObject.data)
                             return new Response("", { status: 404 })
                         } else if (from !== this.id) {
                             controller.enqueue('event: ' + dataObject.event + '\n' +
