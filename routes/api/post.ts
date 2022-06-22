@@ -1,4 +1,4 @@
-import { HandlerContext } from "../../server_deps.ts";
+import { HandlerContext } from "$fresh/server.ts";
 
 const DEBUG = true
 

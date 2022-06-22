@@ -2,7 +2,8 @@
 /** @jsx h */
 
 // dependencies
-import { h, useState, useEffect } from "../client_deps.ts";
+import { h } from "preact";
+import { useState, useEffect  } from "preact/hooks";
 
 // app
 import { on, fire } from '../client_deps.ts'

@@ -1,5 +1,5 @@
 
-import { HandlerContext } from "../../server_deps.ts";
+import { HandlerContext } from "$fresh/server.ts";
 const DEBUG = true
 
 export const handler = (_req: Request, _ctx: HandlerContext): Response => {

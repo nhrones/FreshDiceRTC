@@ -1,7 +1,8 @@
 /** @jsx h */
 
 // dependencies
-import { h, Head } from "../client_deps.ts";
+import { h } from "preact";
+import { Head } from '$fresh/runtime.ts'
 
 // components
 import ViewController from "../islands/ViewController.tsx";

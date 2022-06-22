@@ -1,7 +1,7 @@
 /** @jsx h */
 
 // dependencies
-import { h } from "../client_deps.ts";
+import { h } from "preact";
 
 // context
 import { SCORE_TEXT } from '../app/scoreElement.ts'

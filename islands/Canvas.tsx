@@ -1,6 +1,6 @@
 /** @jsx h */
-
-import { h, useEffect, useRef } from "../client_deps.ts";
+import { h } from "preact";
+import { useRef, useEffect  } from "preact/hooks";
 import { initCanvas } from '../app/dieFactory.ts'
 
 export default function Canvas() {

@@ -1,6 +1,6 @@
 /** @jsx h */
-import { h, useState, useEffect } from "../client_deps.ts";
-
+import { h } from "preact";
+import { useState, useEffect  } from "preact/hooks";
 // app
 import { on } from "../client_deps.ts"
 

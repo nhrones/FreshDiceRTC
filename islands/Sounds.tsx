@@ -1,6 +1,8 @@
 
 /** @jsx h */
-import { h, useEffect } from "../client_deps.ts";
+import { h } from "preact";
+import { useEffect  } from "preact/hooks";
+
 import * as PlaySound from '../app/sounds.ts'
 
 export let context: AudioContext

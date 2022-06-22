@@ -1,8 +1,8 @@
 {
-    "imports": {
-      "$fresh/": "https://raw.githubusercontent.com/lucacasonato/fresh/61b71c672035f89271cd6796bdc3499c0e0d4b35/",
-      "preact": "https://esm.sh/preact@10.6.6",
-      "preact/": "https://esm.sh/preact@10.6.6/",
-      "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.1.20?deps=preact@10.6.6"
-    }
+  "imports": {
+    "$fresh/": "https://fresh.deno.dev/@1.0.0-rc.1/",
+    "preact": "https://esm.sh/preact@10.6.6",
+    "preact/": "https://esm.sh/preact@10.6.6/",
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.1.20?deps=preact@10.6.6"
   }
+}
