@@ -4,7 +4,10 @@
     "build": "deno run -A --unstable-broadcast-channel dev.ts build",
     "preview": "deno run -A --unstable-broadcast-channel main.ts"
   },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
   "imports": {
     "$fresh/": "https://deno.land/x/fresh@1.5.1/",
     "preact": "https://esm.sh/preact@10.18.1",
@@ -13,6 +16,23 @@
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.1",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.0"
   },
-  "lint": { "rules": { "tags": ["fresh", "recommended"] } },
-  "exclude": ["**/_fresh/*"]
+  "lint": {
+    "rules": {
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
+    }
+  },
+  "exclude": [
+    "**/_fresh/*"
+  ],
+  "deploy": {
+    "project": "b193086c-9fb3-4ee3-a87e-b9a8426991bd",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
+  }
 }
