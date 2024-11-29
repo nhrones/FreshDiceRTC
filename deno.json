@@ -1,8 +1,8 @@
 {
   "tasks": {
     "start": "deno run -A --unstable-broadcast-channel --watch=static/,routes/ dev.ts",
-    "build": "deno run -A dev.ts build",
-    "preview": "deno run -A main.ts"
+    "build": "deno run -A --unstable-broadcast-channel dev.ts build",
+    "preview": "deno run -A --unstable-broadcast-channel main.ts"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "imports": {
