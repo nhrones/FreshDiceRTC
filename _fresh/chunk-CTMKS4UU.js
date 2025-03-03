@@ -1,0 +1,1 @@
+import{e as f}from"./chunk-OFI2UGSN.js";import{a as o}from"./chunk-SMIHS7RB.js";import{a as t,b as e}from"./chunk-XHZETVEX.js";function a(n){let[r,s]=t(n.text);return e(()=>{f("UpdateInfo",i=>{s(i)})},[]),o("div",{class:"info",children:r})}export{a};

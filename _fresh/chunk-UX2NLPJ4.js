@@ -1,0 +1,1 @@
+import{e as n}from"./chunk-OFI2UGSN.js";import{a as i}from"./chunk-SMIHS7RB.js";import{a as r,b as l}from"./chunk-XHZETVEX.js";function y(e){let[s,c]=r(e.text),o=e.color;l(()=>{n("UpdatePlayer",t=>{t.index===e.index&&c(t.text),o=t.color})},[]);let x="color:"+o;return i("div",{class:"player"+e.index,style:x,children:s})}export{y as a};
